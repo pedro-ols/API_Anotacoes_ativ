@@ -15,12 +15,14 @@ class NotaModel {
       },
     });
   };
-  update = async (id, titulo, conteudo, favorita, cor, atualizadaEm) => {
+  update = async (id, titulo, conteudo, cor) => {
     try {
-      const tarefa = await prisma.task.update({
+      const tarefa = await prisma.nota.update({
         where: { id },
         data: {
-          concluida: concluida !== undefined ? concluida : true,
+          titulo, 
+          conteudo,
+          cor
         }
       })
       return(tarefa);
@@ -33,13 +35,13 @@ class NotaModel {
 
   delete = async (id) => {
     try{
-      const tarefaDeletada = await prisma.task.delete({
+      const notaDeletada = await prisma.nota.delete({
         where: { id },
       });
 
-      return tarefaDeletada
+      return notaDeletada
     }catch (error){
-      console.log("Erro ao deletar tarefa", error);
+      console.log("Erro ao deletar anotação", error);
       throw error;
     }
   };

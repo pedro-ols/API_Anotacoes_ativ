@@ -29,19 +29,37 @@ class NotaController {
 
   update = async (req, res) => {
     const { id } = req.params
-    const { concluida, descricao } = req.body;
+    const { titulo, conteudo, cor } = req.body;
 
     try {
-      const tarefaAtualizada = await tarefaModel.update(Number(id), concluida, descricao);
+      const notaAtualizada = await notaModel.update(Number(id), titulo, conteudo, cor);
 
-      if (!tarefaAtualizada) {
-        return res.status(404).json({ erro: "Tarefa não encontrada!" })
+      if (!notaAtualizada) {
+        return res.status(404).json({ erro: "Anotação não encontrada!" })
       }
 
-      res.json(tarefaAtualizada);
+      res.json(notaAtualizada);
     } catch (error) {
       console.log(error)
-      res.status(500).json({ erro: "Erro ao atualizar tarefa" })
+      res.status(500).json({ erro: "Erro ao atualizar anotação" })
+    }
+  };
+
+  update = async (req, res) => {
+    const { id } = req.params
+    const { titulo, conteudo, cor } = req.body;
+
+    try {
+      const notaAtualizada = await notaModel.update(Number(id), titulo, conteudo, cor);
+
+      if (!notaAtualizada) {
+        return res.status(404).json({ erro: "Anotação não encontrada!" })
+      }
+
+      res.json(notaAtualizada);
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ erro: "Erro ao atualizar anotação" })
     }
   };
   
@@ -49,16 +67,16 @@ class NotaController {
     const { id } = req.params
 
     try {
-      const sucesso = await tarefaModel.delete(Number(id));
+      const sucesso = await notaModel.delete(Number(id));
 
       if (!sucesso) {
-        return res.status(404).json({ erro: "Tarefa não encontrada!" })
+        return res.status(404).json({ erro: "Anotação não encontrada!" })
       }
 
-      res.status(200).send({ message: "Tarefa deletada com sucesso"})
+      res.status(200).send({ message: "Anotação deletada com sucesso"})
     } catch (error) {
       console.log(error)
-      res.status(500).json({ erro: "Erro ao deletar tarefa" })
+      res.status(500).json({ erro: "Erro ao deletar anotação" })
     }
   };
 }
