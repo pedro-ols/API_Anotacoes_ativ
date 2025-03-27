@@ -12,18 +12,18 @@ class NotaController {
   };
 
   create = async (req, res) => {
-    const { titulo, conteudo, favorita, cor } = req.body;
+    const { titulo, conteudo, cor } = req.body;
     try {
       if (!titulo) {
-        return res.status(400).json({ erro: "Insira " });
+        return res.status(400).json({ erro: "Insira um título para a anotação" });
       } else if(!conteudo){
         return res.status(400).json({ erro: "Insira um conteúdo válido para a anotação"})
       }
-      const novaTarefa = tarefaModel.create(descricao);
-      res.status(201).json(novaTarefa);
+      const novaNota = tarefaModel.create(titulo, conteudo, cor);
+      res.status(201).json(novaNota);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ erro: "Erro ao criar tarefa" })
+      res.status(500).json({ erro: "Erro ao criar anotação." })
     }
   };
 
@@ -44,6 +44,7 @@ class NotaController {
       res.status(500).json({ erro: "Erro ao atualizar tarefa" })
     }
   };
+  
   delete = async (req, res) => {
     const { id } = req.params
 
@@ -61,4 +62,4 @@ class NotaController {
     }
   };
 }
-export default new TarefaController();
+export default new NotaController();
