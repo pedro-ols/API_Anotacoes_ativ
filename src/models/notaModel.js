@@ -3,17 +3,15 @@ import prisma from "../../prisma/client.js"
 class NotaModel {
 
   getAll = async () => {
-    return await prisma.task.findMany()
+    return await prisma.nota.findMany()
   };
 
-  create = async ( titulo, conteudo, favorita, cor, criadaEm) => {
-    return await prisma.task.create({
+  create = async ( titulo, conteudo, cor,) => {
+    return await prisma.nota.create({
       data: {
         titulo,
         conteudo,
-        favorita,
         cor, 
-        criadaEm,
       },
     });
   };
@@ -23,7 +21,6 @@ class NotaModel {
         where: { id },
         data: {
           concluida: concluida !== undefined ? concluida : true,
-          descricao,
         }
       })
       return(tarefa);

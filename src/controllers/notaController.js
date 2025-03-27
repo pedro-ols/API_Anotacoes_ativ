@@ -19,7 +19,7 @@ class NotaController {
       } else if(!conteudo){
         return res.status(400).json({ erro: "Insira um conteúdo válido para a anotação"})
       }
-      const novaNota = tarefaModel.create(titulo, conteudo, cor);
+      const novaNota = notaModel.create(titulo, conteudo, cor);
       res.status(201).json(novaNota);
     } catch (error) {
       console.log(error);
