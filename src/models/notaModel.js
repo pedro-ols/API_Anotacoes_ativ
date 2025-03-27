@@ -6,6 +6,12 @@ class NotaModel {
     return await prisma.nota.findMany()
   };
 
+  getById = async (id) => {
+    return await prisma.nota.findMany({
+      where: { id }
+    })
+  }
+
   create = async ( titulo, conteudo, cor,) => {
     return await prisma.nota.create({
       data: {

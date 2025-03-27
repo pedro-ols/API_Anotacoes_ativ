@@ -11,6 +11,22 @@ class NotaController {
     }
   };
 
+  getById = async (req, res) => {
+    const { id } = req.params
+    
+    try {
+      const nota = await notaModel.getById(parseInt(id));
+
+      if (!nota) {
+        return res.status(404).json({ erro: "Anotação não encontrada!" })
+      }
+      res.json(nota)
+    } catch (error){
+      console.log(error);
+      res.status(500).json({ erro: "Erro ao buscar anotação"})
+    }
+  }
+
   create = async (req, res) => {
     const { titulo, conteudo, cor } = req.body;
     try {
