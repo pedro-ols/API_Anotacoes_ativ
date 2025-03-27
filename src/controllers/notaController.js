@@ -61,22 +61,25 @@ class NotaController {
     }
   };
 
-  update = async (req, res) => {
+  setFavourite = async (req, res) => {
     const { id } = req.params
-    const { titulo, conteudo, cor } = req.body;
+    const { favorita } = req.body;
 
-    try {
-      const notaAtualizada = await notaModel.update(Number(id), titulo, conteudo, cor);
+    try{
+      const notaFavoritada = await notaModel.setFavourite(Number(id), favorita);
 
-      if (!notaAtualizada) {
+      if (!notaFavoritada) {
         return res.status(404).json({ erro: "Anotação não encontrada!" })
       }
+      if (favorita !== true && favorita !== false) {
+        return res.status(404).json({ erro: "O campo de favorita deve ser preenchido com 'true' ou 'false'" })
+      }
+      return res.status(200).send({ message: "anotação favoritada com sucesso"})
 
-      res.json(notaAtualizada);
-    } catch (error) {
+    } catch (error){
       console.log(error)
-      res.status(500).json({ erro: "Erro ao atualizar anotação" })
-    }
+      res.status(500).json({ erro: "Erro ao favoritar anotação" })
+    };
   };
   
   delete = async (req, res) => {

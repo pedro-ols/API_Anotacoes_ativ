@@ -23,7 +23,7 @@ class NotaModel {
   };
   update = async (id, titulo, conteudo, cor) => {
     try {
-      const tarefa = await prisma.nota.update({
+      const nota = await prisma.nota.update({
         where: { id },
         data: {
           titulo, 
@@ -31,13 +31,28 @@ class NotaModel {
           cor
         }
       })
-      return(tarefa);
+      return(nota);
 
     } catch (error) {
       console.log("Error", error);
       throw error;
     };
   };
+  setFavourite = async (id, favorita) => {
+    try {
+      const nota = await prisma.nota.update({
+        where: { id },
+        data: {
+          favorita
+        }
+      })
+      return(nota);
+
+    } catch (error) {
+      console.log("Error", error);
+      throw error;
+    };
+  }
 
   delete = async (id) => {
     try{
